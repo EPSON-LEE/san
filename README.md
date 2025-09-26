@@ -103,6 +103,122 @@ cd apps/pc
 pnpm build
 ```
 
+## 环境变量配置
+
+项目支持多环境配置，可以为开发和生产环境使用不同的环境变量。
+
+### 环境文件优先级
+
+系统会按以下优先级加载环境变量文件：
+
+1. `.env.{NODE_ENV}` - 环境特定文件（如 `.env.production`、`.env.development`）
+2. `.env.local` - 本地覆盖文件（通常不提交到版本控制）
+3. `.env` - 默认环境文件
+
+### 配置步骤
+
+#### 开发环境配置
+
+1. 复制开发环境模板：
+```bash
+cp .env.development .env.local
+# 或直接使用
+NODE_ENV=development pnpm dev
+```
+
+2. 开发环境特点：
+   - 使用本地数据库
+   - 详细的调试日志
+   - 宽松的安全配置
+   - 较高的请求限制
+
+#### 生产环境配置
+
+1. 复制生产环境模板：
+```bash
+cp .env.production .env
+# 或设置环境变量
+NODE_ENV=production pnpm deploy
+```
+
+2. 生产环境特点：
+   - 使用 Docker 容器数据库
+   - 简洁的日志输出
+   - 严格的安全配置
+   - 合理的请求限制
+
+### 使用方法
+
+#### 开发环境启动
+```bash
+# 使用开发环境配置
+pnpm dev
+# 或明确指定
+NODE_ENV=development pnpm dev
+
+# 使用生产环境配置进行开发
+pnpm dev:prod
+```
+
+#### 生产环境部署
+```bash
+# 生产环境部署（默认）
+pnpm deploy
+
+# 开发环境部署
+pnpm deploy:dev
+```
+
+### 环境变量文件说明
+
+- `.env.development` - 开发环境专用配置
+- `.env.production` - 生产环境专用配置
+- `.env.local` - 本地覆盖配置（不会被提交）
+- `.env.example` - 配置模板文件
+```bash
+# 应用环境
+NODE_ENV=production
+
+# 服务端口配置
+BACKEND_PORT=4000
+FRONTEND_PORT=80
+
+# 数据库配置
+MONGODB_VERSION=6.0
+MONGODB_PORT=27017
+MONGODB_USERNAME=admin
+MONGODB_PASSWORD=your-secure-password
+MONGODB_DATABASE=decode
+DATABASE_URL=mongodb://mongodb:27017/decode
+
+# API 配置
+API_PREFIX=api
+REACT_APP_API_URL=http://localhost:4000
+
+# 日志配置
+LOG_LEVEL=info
+
+# JWT 配置
+JWT_SECRET=your-jwt-secret-key
+
+# 其他配置
+CORS_ORIGIN=http://localhost:3000
+RATE_LIMIT_MAX=100
+RATE_LIMIT_WINDOW_MS=900000
+```
+
+### 环境变量说明
+
+- `NODE_ENV`: 应用运行环境 (development/production)
+- `BACKEND_PORT`: 后端服务端口
+- `FRONTEND_PORT`: 前端服务端口
+- `MONGODB_*`: MongoDB 数据库相关配置
+- `JWT_SECRET`: JWT 令牌加密密钥
+- `API_PREFIX`: API 路径前缀
+- `LOG_LEVEL`: 日志级别
+
+**注意**: 生产环境中请务必修改默认密码和密钥！
+
 ## 部署项目
 
 ### 使用 Docker Compose 部署

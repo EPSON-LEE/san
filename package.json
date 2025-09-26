@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "pnpm -r run dev",
+    "dev:prod": "NODE_ENV=production pnpm -r run dev",
     "build": "pnpm -r run build",
+    "build:all": "pnpm -r build",
+    "deploy": "node scripts/deploy.mjs",
+    "deploy:dev": "NODE_ENV=development node scripts/deploy.mjs",
     "clean": "pnpm -r run clean"
   },
   "keywords": [],
@@ -17,11 +21,10 @@
     "packages/*",
     "apps/*"
   ],
-  "dependencies": {
-  },
   "devDependencies": {
     "@babel/parser": "^7.28.4",
     "@babel/traverse": "^7.28.4",
-    "@babel/types": "^7.28.4"
+    "@babel/types": "^7.28.4",
+    "dotenv": "^17.2.2"
   }
 }

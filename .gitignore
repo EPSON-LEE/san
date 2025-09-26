@@ -3,11 +3,10 @@ node_modules
 # Docker related
 .docker
 docker-compose.override.yml
-*.env
+# Environment variables
+.env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*.local
 
 # Docker build artifacts
 **/dist
