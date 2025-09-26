@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # 后端服务 (NestJS)
+  backend:
+    image: node:20-alpine
+    container_name: decode-backend
+    working_dir: /app
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+    volumes:
+      - ./packages/server:/app
+      - /app/node_modules
+    command: >
+      sh -c "npm install -g pnpm &&
+             pnpm install &&
+             pnpm run start:dev"
+    restart: unless-stopped
+
+  # 前端服务 (React)
+  frontend:
+    image: node:20-alpine
+    container_name: decode-frontend
+    working_dir: /app
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+      - VITE_API_URL=http://backend:4000
+    volumes:
+      - ./packages/web:/app
+      - /app/node_modules
+    command: >
+      sh -c "npm install -g pnpm &&
+             pnpm install &&
+             pnpm run dev --host"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+networks:
+  default:
+    name: decode-network

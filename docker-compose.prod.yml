@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  # 后端服务 (NestJS)
+  backend:
+    build:
+      context: ./packages/server
+      dockerfile: Dockerfile.prod
+    container_name: decode-backend-prod
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+    restart: always
+    networks:
+      - decode-network
+
+  # 前端服务 (React)
+  frontend:
+    build:
+      context: ./packages/web
+      dockerfile: Dockerfile.prod
+    container_name: decode-frontend-prod
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
+    networks:
+      - decode-network
+
+networks:
+  decode-network:
+    driver: bridge

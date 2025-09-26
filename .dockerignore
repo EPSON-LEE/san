@@ -1,0 +1,17 @@
+# .dockerignore
+node_modules
+**/node_modules
+.git
+*.md
+.vscode
+.env*
+tests
+dist
+build
+.next
+.nuxt
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
