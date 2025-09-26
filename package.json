@@ -11,10 +11,11 @@
     "build:all": "pnpm -r build",
     "deploy": "node scripts/deploy.mjs",
     "deploy:dev": "NODE_ENV=development node scripts/deploy.mjs",
-    "clean": "pnpm -r run clean"
+    "clean": "pnpm -r run clean",
+    "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('pnpm') === -1) throw new Error('Please use pnpm instead of npm. Run: pnpm install')\""
   },
   "keywords": [],
-  "author": "",
+  "author": "Doodlo",
   "license": "ISC",
   "packageManager": "pnpm@10.11.0",
   "workspaces": [
