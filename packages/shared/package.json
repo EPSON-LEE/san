@@ -1,0 +1,12 @@
+{
+  "name": "@my/shared",
+  "version": "1.0.0",
+  "description": "共享代码（类型、工具、常量）",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

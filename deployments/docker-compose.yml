@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # MongoDB 数据库
+  mongodb:
+    image: mongo:latest
+    container_name: decode-mongodb
+    ports:
+      - "27018:27018"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+  # 后端服务 (NestJS)
+  backend:
+    image: node:20-alpine
+    container_name: decode-backend
+    working_dir: /app
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+      - MONGODB_URI=mongodb://root:example@mongodb:27017/decode?authSource=admin
+    volumes:
+      - ./packages/server:/app
+      - /app/node_modules
+    command: >
+      sh -c "npm install -g pnpm &&
+             pnpm install &&
+             pnpm run start:dev"
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+
+  # 前端服务 (React)
+  frontend:
+    image: node:20-alpine
+    container_name: decode-frontend
+    working_dir: /app
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+      - VITE_API_URL=http://backend:4000
+    volumes:
+      - ./packages/web:/app
+      - /app/node_modules
+    command: >
+      sh -c "npm install -g pnpm &&
+             pnpm install &&
+             pnpm run dev --host"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+networks:
+  default:
+    name: decode-network
+
+volumes:
+  mongodb_data:
+    driver: local

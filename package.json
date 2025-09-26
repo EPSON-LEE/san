@@ -14,10 +14,10 @@
   "license": "ISC",
   "packageManager": "pnpm@10.11.0",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "apps/*"
   ],
   "dependencies": {
-    "@decode/example": "workspace:*"
   },
   "devDependencies": {
     "@babel/parser": "^7.28.4",
