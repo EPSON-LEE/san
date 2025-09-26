@@ -1,6 +1,22 @@
 # Decode 项目
 
-这是一个基于 pnpm 工作空间的 monorepo 项目，包含前端和后端应用。
+这是一个基于 pnpm 工作空间的 monorepo 项目，包含前端和后端应用。项目采用现代化的全栈开发架构，支持多环境部署和容器化运行。
+
+## 技术栈
+
+### 前端
+- **React**: 用于构建用户界面的 JavaScript 库
+- **Vite**: 现代前端构建工具，提供极速的开发体验
+- **TypeScript**: 类型安全的 JavaScript 超集
+- **React Router**: 前端路由管理
+- **Axios**: HTTP 客户端
+
+### 后端
+- **NestJS**: 基于 Node.js 的渐进式服务端框架
+- **MongoDB**: NoSQL 数据库
+- **TypeScript**: 类型安全的 JavaScript 超集
+- **JWT**: 用户认证和授权
+- **Docker**: 容器化部署
 
 ## 目录结构
 
@@ -9,24 +25,32 @@ decode/
 ├── apps/                   # 应用程序目录
 │   ├── h5/                 # 移动端 H5 应用
 │   ├── pc/                 # PC 端 React 应用
+│   │   ├── Dockerfile      # 开发环境 Docker 配置
+│   │   ├── Dockerfile.prod # 生产环境 Docker 配置
+│   │   └── src/            # 前端源代码
 │   └── server/             # 后端 NestJS 服务
+│       ├── Dockerfile      # 开发环境 Docker 配置
+│       ├── Dockerfile.prod # 生产环境 Docker 配置
+│       └── src/            # 后端源代码
 ├── packages/               # 共享包目录
 │   ├── config/             # 共享配置
+│   │   └── src/            # 配置源代码
 │   ├── shared/             # 共享代码
-│   │   ├── src/
-│   │   │   ├── api/        # API 相关代码
-│   │   │   ├── constants/  # 常量定义
-│   │   │   └── utils/      # 工具函数
+│   │   ├── decodeToEn/     # 业务相关
+│   │   ├── lib/            # 工具库
+│   │   └── src/            # 源代码
 │   └── ui/                 # 共享 UI 组件
-│       └── src/
-│           └── components/ # UI 组件
+│       └── src/            # UI 组件源代码
 ├── deployments/            # 部署相关配置
-│   ├── docker-compose.yml  # 开发环境 Docker 配置
-│   ├── docker-compose.prod.yml # 生产环境 Docker 配置
+│   ├── docker-compose.prod.yml # 生产环境 Docker Compose 配置
 │   └── nginx.conf          # Nginx 配置
 ├── scripts/                # 脚本文件
-│   ├── build-all.sh        # 构建所有应用
-│   └── deploy.sh           # 部署脚本
+│   └── deploy.mjs          # 部署脚本（ES 模块）
+├── docker-compose.yml      # 开发环境 Docker Compose 配置
+├── document/               # 项目文档
+├── .env.development        # 开发环境配置文件
+├── .env.production         # 生产环境配置文件
+├── .env.example            # 环境变量示例文件
 └── .github/                # GitHub 相关配置
     └── workflows/          # GitHub Actions 工作流
         ├── ci.yml          # 持续集成配置
@@ -242,8 +266,28 @@ docker-compose -f deployments/docker-compose.prod.yml up -d
 ./scripts/build-all.sh
 
 # 部署应用
-./scripts/deploy.sh
+node scripts/deploy.mjs
+# 或使用开发环境部署
+NODE_ENV=development node scripts/deploy.mjs
 ```
+
+### 脚本文件说明
+
+#### deploy.mjs
+
+这是一个使用 ES 模块语法编写的部署脚本，主要功能包括：
+
+- 根据环境变量加载不同的 `.env` 文件
+- 自动构建应用
+- 检查 Docker 和 Docker Compose 可用性
+- 执行 Docker Compose 部署
+- 检查部署状态
+
+使用 `.mjs` 扩展名的优势：
+- 明确标识为 ES 模块，支持 `import/export` 语法
+- 不需要在 package.json 中设置 `"type": "module"`
+- 可以与 CommonJS 模块在同一项目中共存
+- 支持顶级 `await` 和动态导入
 
 ## 项目结构说明
 
