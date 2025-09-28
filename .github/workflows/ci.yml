@@ -34,7 +34,7 @@ jobs:
       
     - name: Lint frontend code
       run: |
-        cd apps/pc
+        cd apps/admin
         pnpm run lint
         
     - name: Lint backend code
@@ -54,8 +54,8 @@ jobs:
         
     - name: Build frontend
       run: |
-        cd apps/pc
-        pnpm run build
+          cd apps/admin
+          pnpm run build
         
     - name: Build backend
       run: |
@@ -67,7 +67,7 @@ jobs:
       with:
         name: build-artifacts
         path: |
-          apps/pc/dist/
+          apps/admin/dist/
           apps/server/dist/
         retention-days: 7
 

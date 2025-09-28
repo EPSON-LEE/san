@@ -23,8 +23,8 @@
 ```
 decode/
 ├── apps/                   # 应用程序目录
-│   ├── h5/                 # 移动端 H5 应用
-│   ├── pc/                 # PC 端 React 应用
+│   ├── app-mobile/          # 移动端应用
+│   ├── admin/               # 管理后台 React 应用
 │   │   ├── Dockerfile      # 开发环境 Docker 配置
 │   │   ├── Dockerfile.prod # 生产环境 Docker 配置
 │   │   ├── tsconfig.json   # TypeScript 配置文件
@@ -107,11 +107,11 @@ cd apps/server
 pnpm dev
 
 # 启动 PC 端前端
-cd apps/pc
+cd apps/admin
 pnpm dev
 
 # 启动移动端 H5
-cd apps/h5
+cd apps/app-mobile
 pnpm dev
 ```
 
@@ -135,7 +135,7 @@ docker-compose up
 pnpm build
 
 # 构建特定应用
-cd apps/pc
+cd apps/admin
 pnpm build
 ```
 
@@ -305,7 +305,7 @@ NODE_ENV=development node scripts/deploy.mjs
 
 - **apps/**: 包含所有独立应用
   - **server/**: NestJS 后端服务
-  - **pc/**: React PC 端应用
+  - **admin/**: React 管理后台应用
   - **h5/**: 移动端 H5 应用
 
 - **packages/**: 包含所有共享代码包

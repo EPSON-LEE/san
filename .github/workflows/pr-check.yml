@@ -42,7 +42,7 @@ jobs:
         
     - name: Run type checking
       run: |
-        cd apps/pc && npx tsc --noEmit
+       run: cd apps/admin && npx tsc --noEmit
         cd ../server && npx tsc --noEmit
         
     - name: Check code formatting
@@ -57,8 +57,8 @@ jobs:
         
     - name: Check bundle size
       run: |
-        cd apps/pc
-        pnpm run build
+          cd apps/admin
+          pnpm run build
         # 可以添加 bundle size 检查
         echo "Bundle size check completed"
         

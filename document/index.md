@@ -15,7 +15,7 @@ my-company-monorepo/
 │   │   ├── Dockerfile             # H5 专用 Dockerfile
 │   │   └── package.json
 │   │
-│   └── pc/                        # 💻 PC 端（管理后台/官网，SPA 或 SSR）
+│   └── admin/                      # 💻 管理后台（React SPA）
 │       ├── src/
 │       ├── public/
 │       ├── vite.config.ts         # 如果是 Vite

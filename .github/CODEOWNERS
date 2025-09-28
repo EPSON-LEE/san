@@ -2,7 +2,7 @@
 * @Doodlo
 
 # Frontend specific
-/apps/pc/ @Doodlo
+/apps/admin/ @Doodlo
 /packages/ui/ @Doodlo
 
 # Backend specific  
