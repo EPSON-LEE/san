@@ -325,3 +325,193 @@ NODE_ENV=development node scripts/deploy.mjs
 - **.github/workflows/**: GitHub Actions 工作流配置
   - **ci.yml**: 持续集成配置
   - **cd.yml**: 持续部署配置
+  - **pr-check.yml**: Pull Request 检查配置
+
+## CI/CD 流水线
+
+本项目配置了完整的 CI/CD 流水线，使用 GitHub Actions 实现自动化构建、测试和部署。
+
+### 🔄 持续集成 (CI)
+
+#### 触发条件
+- 推送到 `main` 或 `develop` 分支
+- 创建或更新 Pull Request
+
+#### CI 流程包括
+1. **代码检查**
+   - ESLint 代码规范检查
+   - TypeScript 类型检查
+   - 代码格式检查
+
+2. **自动化测试**
+   - 单元测试 (`pnpm test`)
+   - 端到端测试 (`pnpm test:e2e`)
+   - 测试覆盖率报告
+
+3. **构建验证**
+   - 前端应用构建 (`pnpm build`)
+   - 后端应用构建 (`pnpm build`)
+   - 构建产物上传
+
+4. **安全扫描**
+   - 依赖漏洞扫描 (`npm audit`)
+   - 代码安全扫描 (Trivy)
+   - SARIF 报告上传
+
+### 🚀 持续部署 (CD)
+
+#### 触发条件
+- 推送到 `main` 分支（自动部署到 staging）
+- 创建版本标签 `v*`（如 `v1.0.0`，部署到 production）
+- CI 流程成功完成后
+
+#### CD 流程包括
+1. **Docker 镜像构建**
+   - 多平台支持 (linux/amd64, linux/arm64)
+   - 镜像推送到 GitHub Container Registry
+   - 镜像缓存优化
+
+2. **环境部署**
+   - **Staging 环境**: 自动部署 `main` 分支
+   - **Production 环境**: 手动部署版本标签
+   - 健康检查和状态验证
+
+3. **安全扫描**
+   - Docker 镜像漏洞扫描
+   - 安全报告生成
+
+### 📋 Pull Request 检查
+
+#### 自动检查项目
+- 提交信息格式检查
+- 代码类型检查
+- 代码格式验证
+- 快速测试执行
+- Bundle 大小检查
+- 自动 PR 评论
+
+### 🔧 CI/CD 配置文件
+
+#### 工作流文件
+- **`.github/workflows/ci.yml`**: 持续集成配置
+- **`.github/workflows/cd.yml`**: 持续部署配置
+- **`.github/workflows/pr-check.yml`**: PR 检查配置
+
+#### 项目管理文件
+- **`.github/CODEOWNERS`**: 代码审查规则
+- **`.github/pull_request_template.md`**: PR 模板
+
+### 📝 开发工作流规范
+
+#### 分支策略
+- `main`: 主分支，用于生产环境部署
+- `develop`: 开发分支，用于功能集成
+- `feature/*`: 功能分支，用于新功能开发
+- `hotfix/*`: 热修复分支，用于紧急修复
+
+#### 提交规范
+推荐使用 [Conventional Commits](https://www.conventionalcommits.org/) 规范：
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**类型说明**:
+- `feat`: 新功能
+- `fix`: 修复 bug
+- `docs`: 文档更新
+- `style`: 代码格式调整
+- `refactor`: 代码重构
+- `test`: 测试相关
+- `chore`: 构建过程或辅助工具的变动
+
+**示例**:
+```
+feat(auth): add user login functionality
+fix(api): resolve database connection issue
+docs: update README with CI/CD information
+```
+
+#### Pull Request 流程
+1. 从 `develop` 分支创建功能分支
+2. 完成功能开发并提交代码
+3. 创建 Pull Request 到 `develop` 分支
+4. 等待 CI 检查通过
+5. 代码审查通过后合并
+6. 定期将 `develop` 合并到 `main` 进行发布
+
+#### 版本发布流程
+1. 确保 `develop` 分支所有功能已完成
+2. 将 `develop` 合并到 `main`
+3. 在 `main` 分支创建版本标签：
+   ```bash
+   git tag -a v1.0.0 -m "Release version 1.0.0"
+   git push origin v1.0.0
+   ```
+4. GitHub Actions 自动触发生产环境部署
+
+### 🛡️ 安全和质量保证
+
+#### 代码质量检查
+- ESLint 规则强制执行
+- TypeScript 严格模式
+- 代码覆盖率要求
+- 自动化测试必须通过
+
+#### 安全措施
+- 依赖漏洞自动扫描
+- Docker 镜像安全检查
+- 敏感信息检测
+- 分支保护规则
+
+#### 环境保护
+- Staging 环境自动部署
+- Production 环境需要手动批准
+- 部署前健康检查
+- 回滚机制
+
+### 🔍 监控和日志
+
+#### 部署监控
+- 健康检查端点
+- 服务状态监控
+- 部署成功/失败通知
+
+#### 日志管理
+- 结构化日志输出
+- 不同环境的日志级别
+- 错误日志聚合
+
+### 📚 相关文档
+
+- [GitHub Actions 文档](https://docs.github.com/en/actions)
+- [Docker 最佳实践](https://docs.docker.com/develop/dev-best-practices/)
+- [Conventional Commits](https://www.conventionalcommits.org/)
+
+### 🚨 故障排除
+
+#### 常见问题
+
+**CI 构建失败**
+1. 检查代码是否通过 ESLint 检查
+2. 确认所有测试用例通过
+3. 验证 TypeScript 类型检查无误
+
+**部署失败**
+1. 检查 Docker 镜像构建是否成功
+2. 验证环境变量配置
+3. 确认目标环境资源充足
+
+**测试失败**
+1. 在本地运行测试确认问题
+2. 检查测试环境配置
+3. 更新测试用例以匹配代码变更
+
+#### 获取帮助
+- 查看 GitHub Actions 运行日志
+- 检查项目 Issues 页面
+- 联系项目维护者
