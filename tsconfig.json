@@ -1,0 +1,51 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "ES2020",
+    "lib": ["ES2020"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "jsx": "react-jsx",
+
+    /* Modules */
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "resolvePackageJsonExports": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+
+    /* Emit */
+    "declaration": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "noEmit": false,
+
+    /* Interop Constraints */
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": true,
+    "strictBindCallApply": true,
+    "noImplicitAny": true,
+
+    /* Completeness */
+    "skipLibCheck": true,
+
+    /* Advanced Options */
+    "incremental": true,
+    "baseUrl": "./"
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
+}

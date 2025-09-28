@@ -27,6 +27,7 @@ services:
       - MONGODB_URI=mongodb://root:example@mongodb:27017/decode?authSource=admin
     volumes:
       - ./apps/server:/app
+      - ./tsconfig.json:/tsconfig.json:ro
       - /app/node_modules
     command: >
       sh -c "npm install -g pnpm &&
@@ -48,6 +49,7 @@ services:
       - VITE_API_URL=http://backend:4000
     volumes:
       - ./apps/pc:/app
+      - ./tsconfig.json:/tsconfig.json:ro
       - /app/node_modules
     command: >
       sh -c "npm install -g pnpm &&
