@@ -27,10 +27,21 @@ decode/
 │   ├── pc/                 # PC 端 React 应用
 │   │   ├── Dockerfile      # 开发环境 Docker 配置
 │   │   ├── Dockerfile.prod # 生产环境 Docker 配置
+│   │   ├── tsconfig.json   # TypeScript 配置文件
+│   │   ├── tsconfig.node.json # Vite 构建工具 TypeScript 配置
+│   │   ├── vite.config.ts  # Vite 配置文件
 │   │   └── src/            # 前端源代码
+│   │       ├── assets/     # 静态资源
+│   │       ├── vite-env.d.ts # Vite 环境类型声明文件
+│   │       ├── App.tsx     # 主应用组件
+│   │       ├── App.css     # 应用样式
+│   │       ├── main.tsx    # 应用入口文件
+│   │       └── index.css   # 全局样式
 │   └── server/             # 后端 NestJS 服务
 │       ├── Dockerfile      # 开发环境 Docker 配置
 │       ├── Dockerfile.prod # 生产环境 Docker 配置
+│       ├── tsconfig.json   # TypeScript 配置文件
+│       ├── tsconfig.build.json # 构建用 TypeScript 配置
 │       └── src/            # 后端源代码
 ├── packages/               # 共享包目录
 │   ├── config/             # 共享配置
@@ -46,6 +57,7 @@ decode/
 │   └── nginx.conf          # Nginx 配置
 ├── scripts/                # 脚本文件
 │   └── deploy.mjs          # 部署脚本（ES 模块）
+├── tsconfig.json           # 根级 TypeScript 配置文件（共享配置）
 ├── docker-compose.yml      # 开发环境 Docker Compose 配置
 ├── document/               # 项目文档
 ├── .env.development        # 开发环境配置文件
