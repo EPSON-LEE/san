@@ -306,7 +306,7 @@ NODE_ENV=development node scripts/deploy.mjs
 - **apps/**: 包含所有独立应用
   - **server/**: NestJS 后端服务
   - **admin/**: React 管理后台应用
-  - **h5/**: 移动端 H5 应用
+  - **app-mobile/**: 移动端应用
 
 - **packages/**: 包含所有共享代码包
   - **shared/**: 共享业务逻辑、API 和工具函数
