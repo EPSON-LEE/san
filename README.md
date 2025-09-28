@@ -24,6 +24,7 @@
 decode/
 ├── apps/                   # 应用程序目录
 │   ├── app-mobile/          # 移动端应用
+│   ├── app-pc/              # PC 端 Nuxt 应用
 │   ├── admin/               # 管理后台 React 应用
 │   │   ├── Dockerfile      # 开发环境 Docker 配置
 │   │   ├── Dockerfile.prod # 生产环境 Docker 配置
@@ -108,6 +109,10 @@ pnpm dev
 
 # 启动 PC 端前端
 cd apps/admin
+pnpm dev
+
+# 启动 PC 端 Nuxt 应用
+cd apps/app-pc
 pnpm dev
 
 # 启动移动端 H5

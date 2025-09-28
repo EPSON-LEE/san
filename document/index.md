@@ -8,14 +8,20 @@ my-company-monorepo/
 │   │   ├── package.json
 │   │   └── ...
 │   │
-│   ├── h5/                        # 📱 移动端 H5（SSR 或 SPA）
-│   │   ├── src/
-│   │   ├── public/
-│   │   ├── next.config.js         # 如果是 Next.js
-│   │   ├── Dockerfile             # H5 专用 Dockerfile
-│   │   └── package.json
-│   │
-│   └── admin/                      # 💻 管理后台（React SPA）
+│   ├── app-mobile/                 # 📱 移动端应用（SSR 或 SPA）
+   │   ├── src/
+   │   ├── public/
+   │   ├── next.config.js         # 如果是 Next.js
+   │   ├── Dockerfile             # H5 专用 Dockerfile
+   │   └── package.json
+   │
+   ├── app-pc/                     # 🖥️ PC 端 Nuxt 应用（SSR）
+   │   ├── src/
+   │   ├── public/
+   │   ├── nuxt.config.ts         # Nuxt 配置
+   │   └── package.json
+   │
+   └── admin/                      # 💻 管理后台（React SPA）
 │       ├── src/
 │       ├── public/
 │       ├── vite.config.ts         # 如果是 Vite
