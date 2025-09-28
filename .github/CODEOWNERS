@@ -1,0 +1,22 @@
+# Global owners
+* @Doodlo
+
+# Frontend specific
+/apps/pc/ @Doodlo
+/packages/ui/ @Doodlo
+
+# Backend specific  
+/apps/server/ @Doodlo
+/packages/server/ @Doodlo
+
+# Infrastructure and deployment
+/deployments/ @Doodlo
+/docker-compose*.yml @Doodlo
+/.github/workflows/ @Doodlo
+/scripts/ @Doodlo
+
+# Configuration files
+/package.json @Doodlo
+/pnpm-workspace.yaml @Doodlo
+/tsconfig.json @Doodlo
+/.env* @Doodlo
