@@ -26,7 +26,7 @@ services:
       - PORT=4000
       - MONGODB_URI=mongodb://root:example@mongodb:27017/decode?authSource=admin
     volumes:
-      - ./packages/server:/app
+      - ./apps/server:/app
       - /app/node_modules
     command: >
       sh -c "npm install -g pnpm &&
@@ -47,7 +47,7 @@ services:
       - NODE_ENV=development
       - VITE_API_URL=http://backend:4000
     volumes:
-      - ./packages/web:/app
+      - ./apps/pc:/app
       - /app/node_modules
     command: >
       sh -c "npm install -g pnpm &&
